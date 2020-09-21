@@ -11,10 +11,11 @@ var quizMean = function(penguin)
     return quizMean
 }
 
- var hwMean = function(penguin)
-{   var getHwGrades = function(homework)
+var getHwGrades = function(homework)
         {return homework.grade}
-    var HwGrades= penguin.homework.map (getHwGrades)
+
+ var hwMean = function(penguin)
+{  var HwGrades= penguin.homework.map (getHwGrades)
    var hwMean = d3.mean(HwGrades)
     return hwMean
 }
@@ -70,8 +71,9 @@ var successFCN = function(penguins)
 {
     console.log ("penguins", penguins);
     setBanner ("Here's the Penguins!");
+    sortOnHwMean(penguins);
     drawTable(penguins);
-    sortOnHwMean(penguinPromise);
+   
 }
 
 var failureFCN = function(error)
@@ -97,16 +99,19 @@ var compareHw = function (penguin1, penguin2)
 }
 
 
-var sortOnHwMean = function(penguinPromise)
+var sortOnHwMean = function(penguins)
 {   d3. select ("#homeworkmean")
     .on ("click", function() 
-      {penguinPromise.sort(compareHw)
-      console.log("clicked")
-    d3.select ("table tbody")
-       .selectAll ("*")
-       .remove()
-       drawTable(penguinPromise) })
+         {
+            penguins.sort(compareHw)
+           
+            console.log("clicked")
+            
+            d3.select ("table tbody")
+            .selectAll ("*")
+            .remove()
+            drawTable(penguins) 
+        })
 
 }
-
 
